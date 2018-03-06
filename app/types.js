@@ -11,5 +11,6 @@ export type Songs = {
     id: number,
     thumbnails: Thumbnails,
     title: string,
-    url: string
+    url: string,
+    duration: string
 };

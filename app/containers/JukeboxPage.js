@@ -12,7 +12,7 @@ class JukeboxPage extends Component<Props> {
   props: Props;
 
   render() {
-    console.log(this.props.songs);
+    // console.log(this.props.songs);
     return (
       <div style={{ margin: 20 }}>
         <JukeboxHeader />
