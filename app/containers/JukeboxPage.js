@@ -1,12 +1,16 @@
 // @flow
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import SongsList from '../components/SongsList';
 import JukeboxHeader from '../components/JukeboxHeader';
-
-import { connect } from 'react-redux';
+import type { Songs } from '../types';
+import Player from '../components/Player';
 
 
 type Props = {
+  songs: Array<Songs>
+  // currentSong: Songs,
+  // nextSong: Songs
 };
 class JukeboxPage extends Component<Props> {
   props: Props;
@@ -16,6 +20,7 @@ class JukeboxPage extends Component<Props> {
     return (
       <div style={{ margin: 20 }}>
         <JukeboxHeader />
+        <Player song={this.props.songs[0]} nextSong={this.props.songs[1]} />
         <SongsList songs={this.props.songs} />
       </div>
     );

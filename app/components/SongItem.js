@@ -1,11 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import idx from 'idx';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import type { Songs } from '../types';
 import { songDuration } from '../utils/durations';
-import SongItem from './Songitem';
 
 const Song = styled.div`
 display: flex;

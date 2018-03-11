@@ -4,8 +4,8 @@ import idx from 'idx';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import type { Songs } from '../types';
-import { songDuration, totalDuration } from '../utils/durations';
-import SongItem from './Songitem';
+import { totalDuration } from '../utils/durations';
+import SongItem from './SongItem';
 
 const ListHeader = styled.h3`
 `;
@@ -20,10 +20,7 @@ export default class SongsList extends Component<Props> {
   render() {
     const { songs } = this.props;
     if (!songs) { // TODO Make a compoenent of empty List
-      return (<ListHeader>
-          No songs in the list
-      </ListHeader>
-      );
+      return (<ListHeader>No songs in the list</ListHeader>);
     }
     return (
       <div>
