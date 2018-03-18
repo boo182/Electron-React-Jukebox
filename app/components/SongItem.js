@@ -28,7 +28,7 @@ export default class SongsList extends Component<Props> {
     return (
       <Song>
         <Title>{this.props.song.title}</Title>
-        <Duration>{`(${songDuration(this.props.song)})`}</Duration>
+        <Duration>{`(${songDuration(this.props.song.duration)})`}</Duration>
       </Song>
 
     );

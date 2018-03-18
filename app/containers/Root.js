@@ -11,7 +11,6 @@ type Props = {
 
 export default class Root extends Component<Props> {
   render() {
-    console.log(this.props.history);
     return (
       <Provider store={this.props.store}>
         <ConnectedRouter history={this.props.history}>

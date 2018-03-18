@@ -3,25 +3,50 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SongsList from '../components/SongsList';
 import JukeboxHeader from '../components/JukeboxHeader';
-import type { Songs } from '../types';
-import Player from '../components/Player';
-
+import type { Playlist } from '../types';
+import { playlistRequest, songRequest } from '../actions/jukebox';
 
 type Props = {
-  songs: Array<Songs>
-  // currentSong: Songs,
-  // nextSong: Songs
+  playlist: Playlist,
+  loading: boolean,
+  playlistRequest: () => void,
+  getSong: (url: string) => void
 };
+
 class JukeboxPage extends Component<Props> {
   props: Props;
+  state = {
+    song: 0,
+    nextSong: 1,
+    previousSong: -1
+  };
+
+  componentWillMount() {
+    this.props.playlistRequest();
+  }
+
+  getNextSong = () => {
+    const { song, nextSong, previousSong } = this.state;
+    if (song < this.props.playlist.length - 1) {
+      this.setState({ song: song + 1, nextSong: nextSong + 1, previousSong: previousSong + 1 });
+    }
+  }
+
+  getPreviousSong = () => {
+    const { song, nextSong, previousSong } = this.state;
+    if (song === 0) {
+      this.setState({ song: 0, nextSong: 1, previousSong: 0 });
+    } else {
+      this.setState({ song: song - 1, nextSong: nextSong - 1, previousSong: previousSong + 1 });
+    }
+  }
 
   render() {
-    // console.log(this.props.songs);
+    const { playlist, loading, getSong } = this.props;
     return (
       <div style={{ margin: 20 }}>
-        <JukeboxHeader />
-        <Player song={this.props.songs[0]} nextSong={this.props.songs[1]} />
-        <SongsList songs={this.props.songs} />
+        <JukeboxHeader playlist={playlist} />
+        {!loading ? <SongsList songs={playlist} getSong={getSong} /> : null}
       </div>
     );
   }
@@ -29,13 +54,15 @@ class JukeboxPage extends Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    loading: state.home.loading,
-    songs: state.home.songs,
+    playlist: state.jukebox.playlist,
+    loading: state.jukebox.loading,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    playlistRequest: () => dispatch(playlistRequest()),
+    getSong: (url) => dispatch(songRequest(url)),
   };
 }
 

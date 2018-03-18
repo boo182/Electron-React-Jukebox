@@ -31,17 +31,13 @@ export default class Button extends Component<Props> {
     this.setState({ isFocused: !this.state.isFocused });
   };
 
-  onClick = () => {
-    this.props.onClick();
-  }
-
   render() {
     return (
       <div>
         <MyButton
           className={this.props.icon}
           style={buttonStyle(this.state.isFocused)}
-          onClick={this.onClick}
+          onClick={() => this.props.onClick()}
           onMouseOver={() => this.mouseOver()}
           onFocus={this.onFocus}
           onMouseOut={() => this.mouseOver()}

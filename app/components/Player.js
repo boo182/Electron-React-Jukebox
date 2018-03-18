@@ -4,40 +4,48 @@ import styled from 'styled-components';
 import type { Songs } from '../types';
 import Button from './Button';
 import PlayingSong from './PlayingSong';
-
+import { songDuration } from '../utils/durations';
 
 const PlayerWrapper = styled.div`
-  margin-top: 30px;
   border: 1px solid white;
+  padding-right: 20px;
+  padding-left: 20px;
 `;
 const SongTitle = styled.div`
+  margin-right: 40px;
+  margin-left: 40px;
 `;
+
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex: 1;
   align-items: center;  
   `;
 type Props = {
     song: Songs,
-    nextSong: Songs
+    nextSong: Songs,
+    previousSong: Songs,
+    getNextSong: () => void,
+    getPreviousSong: () => void
 };
 
 export default class Player extends Component<Props> {
   props: Props;
   render() {
-    const { title, duration } = this.props.song;
-    if (!this.props.song) {
+    const { song, nextSong, previousSong, getNextSong, getPreviousSong } = this.props;
+    if (!song) {
       return <div>No Song</div>;
     }
     return (
       <PlayerWrapper>
         <TitleWrapper>
-          <Button icon="fa fa-arrow-circle-left fa-2x" onClick={() => console.log('yooooooo')} />
-          <SongTitle>{title} - {duration}</SongTitle>
-          <Button icon="fa fa-arrow-circle-right fa-2x" onClick={() => console.log('yooooooo')} />
+          <Button icon="fa fa-arrow-circle-left fa-2x" onClick={getPreviousSong} />
+          <SongTitle>{song.title} - {songDuration(song.duration)}</SongTitle>
+          <Button icon="fa fa-arrow-circle-right fa-2x" onClick={getNextSong} />
         </TitleWrapper>
-        <PlayingSong song={this.props.song} />
+        <PlayingSong song={song} />
       </PlayerWrapper>
     );
   }

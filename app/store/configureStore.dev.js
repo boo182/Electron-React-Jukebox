@@ -6,7 +6,7 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import mySaga from '../sagas';
-import homeActions from '../actions/home';
+import jukeboxActions from '../actions/jukebox';
 
 
 const history = createHashHistory();
@@ -40,7 +40,7 @@ const configureStore = (initialState) => {
 
   // Redux DevTools Configuration
   const actionCreators = {
-    ...homeActions,
+    ...jukeboxActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
